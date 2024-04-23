@@ -7,11 +7,7 @@ function NewsCard({ article }) {
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <a href={url} target="_blank" rel="noopener noreferrer">
-        <img
-          className="rounded-t-lg"
-          src={urlToImage}
-          alt={title}
-        />
+        <img className="rounded-t-lg" src={urlToImage} alt={title} />
       </a>
       <div className="p-5">
         <a href={url} target="_blank" rel="noopener noreferrer">
@@ -56,8 +52,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const pageSize = 5;
-  const apiKey= import.meta.env.VITE_NEWS_API_KEY;
-
+  const apiKey = import.meta.env.VITE_NEWS_API_KEY;
 
   useEffect(() => {
     fetchNews();
@@ -86,10 +81,31 @@ function App() {
 
   return (
     <div className="bg-gray-600 min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-7xl font-bold text-white">Newsify</h1>
-          <a
+      <nav className="sticky top-0 z-50 bg-gray-600 shadow shadow-gray-600 w-100 px-8 md:px-auto">
+        <div class="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
+          <div class="flex items-center">
+            <div class="text-indigo-500 md:order-1 flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-10 w-10"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                />
+              </svg>
+              <span class="ml-2 text-xl font-bold">Newsify</span>
+            </div>
+          </div>
+
+          <div class="order-2 md:order-3">
+            <button class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2">
+            <a
             href="https://www.instagram.com/20s.hamza/"
             target="_blank"
             rel="noopener noreferrer"
@@ -113,7 +129,11 @@ function App() {
             </svg>
             <span className="ml-2">20s.hamza</span>
           </a>
+            </button>
+          </div>
         </div>
+      </nav>
+      <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {articles.map((article, index) => (
             <NewsCard key={index} article={article} />
