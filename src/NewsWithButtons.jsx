@@ -16,7 +16,7 @@ function NewsWithButtons() {
   }, [currentPage]);
 
   const fetchNews = async () => {
-    const url = `https://newsapi.org/v2/top-headlines?country=us&pageSize=${pageSize}&page=${currentPage}&apiKey=${apiKey}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=us&pageSize=${pageSize}&page=${currentPage}&apiKey=b63e2071e6fe4696987c0c7f0ca0b13f`;
 
     try {
       const response = await axios.get(url);
