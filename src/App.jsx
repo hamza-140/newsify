@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import NewsWithButtons from "./NewsWithButtons";
+import NewsWithInfiniteScroll from "./NewsWithInfiniteScroll";
 
 function NewsCard({ article }) {
   const { title, description, url, urlToImage } = article;
@@ -133,28 +135,10 @@ function App() {
           </div>
         </div>
       </nav>
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {articles.map((article, index) => (
-            <NewsCard key={index} article={article} />
-          ))}
-        </div>
-        <div className="mt-8 flex justify-center">
-          <button
-            onClick={handlePrevClick}
-            disabled={currentPage === 1}
-            className="bg-red-500 text-white px-6 py-2 rounded mr-4 disabled:opacity-50 hover:bg-blue-600"
-          >
-            Previous
-          </button>
-          <button
-            onClick={handleNextClick}
-            className="bg-green-500 text-white px-6 py-2 rounded hover:bg-blue-600"
-          >
-            Next
-          </button>
-        </div>
-      </div>
+      {/* OPTION 1 */}
+      <NewsWithButtons/>
+      {/* OPTION 2 */}
+      <NewsWithInfiniteScroll/>
     </div>
   );
 }
