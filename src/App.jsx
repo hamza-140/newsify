@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
 import NewsWithButtons from "./NewsWithButtons";
 import NewsWithInfiniteScroll from "./NewsWithInfiniteScroll";
 import Navbar from "./Navbar";
