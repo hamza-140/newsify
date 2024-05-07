@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import NewsCard from "./NewsCard";
-
 
 function NewsWithButtons() {
   const [articles, setArticles] = useState([]);
@@ -19,9 +17,13 @@ function NewsWithButtons() {
     const url = `https://newsapi.org/v2/top-headlines?country=us&pageSize=${pageSize}&page=${currentPage}&apiKey=b63e2071e6fe4696987c0c7f0ca0b13f`;
 
     try {
-      const response = await axios.get(url);
-      setArticles(response.data.articles);
-      setTotalArticles(response.data.totalResults);
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setArticles(data.articles);
+      setTotalArticles(data.totalResults);
     } catch (error) {
       console.error("Error fetching news:", error);
     }
@@ -56,7 +58,7 @@ function NewsWithButtons() {
         </button>
         <button
           onClick={handleNextClick}
-          disabled={ currentPage * pageSize == totalArticles }
+          disabled={currentPage * pageSize >= totalArticles}
           className="bg-green-500 text-white px-6 py-2 rounded disabled:opacity-50 hover:bg-blue-600 hover:cursor-pointer disabled:hover:cursor-not-allowed"
         >
           Next
