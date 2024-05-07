@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NewsCard from "./NewsCard";
-
-
 
 function NewsWithInfiniteScroll() {
   const [articles, setArticles] = useState([]);
@@ -22,11 +19,15 @@ function NewsWithInfiniteScroll() {
     const url = `https://newsapi.org/v2/top-headlines?country=us&pageSize=${pageSize}&page=${currentPage}&apiKey=b63e2071e6fe4696987c0c7f0ca0b13f`;
 
     try {
-      const response = await axios.get(url);
-      const newArticles = response.data.articles.filter(article => !loadedUrls.includes(article.url));
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      const newArticles = data.articles.filter(article => !loadedUrls.includes(article.url));
       setArticles(prevArticles => [...prevArticles, ...newArticles]);
       setLoadedUrls(prevUrls => [...prevUrls, ...newArticles.map(article => article.url)]);
-      setArticleCount(response.data.totalResults);
+      setArticleCount(data.totalResults);
     } catch (error) {
       console.error("Error fetching news:", error);
     }
